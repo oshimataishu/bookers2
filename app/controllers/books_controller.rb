@@ -1,5 +1,4 @@
 class BooksController < ApplicationController
-
   def index
     @current_user = current_user
     @book = Book.new
@@ -51,8 +50,7 @@ class BooksController < ApplicationController
   def destroy
     @book = Book.find(params[:id])
     @user = @book.user
-    if @user == current_user
-    else
+    unless @user == current_user
       redirect_to books_path
     end
     @book.destroy
@@ -61,8 +59,7 @@ class BooksController < ApplicationController
   end
 
   private
-
-  def book_params
-    params.require(:book).permit(:title, :body)
-  end
+    def book_params
+      params.require(:book).permit(:title, :body)
+    end
 end
